@@ -1,0 +1,22 @@
+import { Link } from "react-router-dom"
+
+function Navbar() {
+    return (
+        <>
+            <div className="w-full flex justify-center py-6 shadow-md bg-gradient-to-b from-darkorange to bg-verygrey text-white">
+                <div className="container flex justify-between text-lg mb-7">
+                <Link to='/home' className="text-2xl font-bold">Blog Pessoal</Link>
+                    <div className="flex gap-4">
+                    Postagens
+                    Temas
+                    Cadastrar Tema
+                    Perfil
+                    Sair
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+export default Navbar
