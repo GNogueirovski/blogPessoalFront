@@ -8,10 +8,11 @@ export default {
     extend: {
       colors:{
         heavyorange:"#264653",
-        mediumbrown:"#A8E0FF",
+        mediumbrown:"#4CAF50",
         darkorange:"#FB8B24",
         verygrey:"#F5F5F5", 
-        superblack:"#260F01",
+        superblack:"#E63946",
+        hovergreen:"#388E3C",
 
       }
     },
