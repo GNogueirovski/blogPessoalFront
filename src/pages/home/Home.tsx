@@ -1,3 +1,4 @@
+import ListaPostagens from "../../components/postagens/listapostagens/ListaPostagens"
 
 function Home() {
     return (
@@ -6,10 +7,10 @@ function Home() {
                 <div className='container grid grid-cols-2 text-darkorange'>
                     <div className="flex flex-col gap-4 items-center justify-center py-4">
                         <h2 className='text-5xl font-bold'>
-                            Seja Bem Vinde!
+                            Seja Bem-vindo!
                         </h2>
                         <p className='text-xl text-heavyorange'>
-                            Expresse aqui seus pensamentos e opniões
+                            Expresse aqui seus pensamentos e opiniões
                         </p>
 
                         <div className="flex justify-around gap-4">
@@ -28,6 +29,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <ListaPostagens />
         </>
     )
 }

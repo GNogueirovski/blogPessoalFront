@@ -8,13 +8,17 @@ import { buscar } from "../../../services/Service";
 
 function ListaTemas() {
 
+    // Hook para gerenciar a navegação do usuário
     const navigate = useNavigate();
 
+    // Váriavel de Estado que recebe os temas do back em um Array
     const [temas, setTemas] = useState<Tema[]>([])
 
+    // useContext acessa nosso contexto, buscando dele as informações necessárias para esse Componente
     const { usuario, handleLogout } = useContext(AuthContext)
     const token = usuario.token
 
+    // Função que chama a service buscar() para receber e guardar os temas
     async function buscarTemas() {
         try {
             await buscar('/temas', setTemas, {
@@ -27,6 +31,7 @@ function ListaTemas() {
         }
     }
 
+    // Esse useEffect verifica se quando o usuário acessou esse componente, ele tem um token válido
     useEffect(() => {
         if (token === '') {
             alert('Você precisa estar logado!')
@@ -34,8 +39,9 @@ function ListaTemas() {
         }
     }, [token])
 
+    // Esse useEffect dispara a função de busca sempre quando o componente é renderizado
     useEffect(() => {
-        buscarTemas()    
+        buscarTemas()
     }, [temas.length])
     
     return (
