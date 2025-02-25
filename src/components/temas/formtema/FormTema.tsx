@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
 import Tema from "../../../models/Tema";
 import { atualizar, buscar, cadastrar } from "../../../services/Service";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function FormTema() {
 
@@ -65,6 +66,44 @@ function FormTema() {
         navigate("/temas")
     }
 
+    async function gerarNovoTema(e: ChangeEvent<HTMLFormElement>) {
+        e.preventDefault()
+        setIsLoading(true)
+
+        if (id !== undefined) {
+            try {
+                await atualizar(`/temas`, tema, setTema, {
+                    headers: { 'Authorization': token }
+                })
+                ToastAlerta("Tema atualizado com sucesso!", "sucesso")
+            } catch (error: any) {
+                if (error.toString().includes('403')) {
+                    handleLogout();
+                } else {
+                    ToastAlerta("Erro ao atualizar tema!", "erro")
+                }
+
+            }
+        } else {
+            try {
+                await cadastrar(`/temas`, tema, setTema, {
+                    headers: { 'Authorization': token }
+                })
+                ToastAlerta("Tema cadastrado com sucesso!", "sucesso")
+            } catch (error: any) {
+                if (error.toString().includes('403')) {
+                    handleLogout();
+                } else {
+                    ToastAlerta("Erro ao cadastrar tema!", "erro")
+                }
+
+            }
+        }
+
+        setIsLoading(false)
+        retornar()
+    }
+
     return (
         <div className="container flex flex-col items-center justify-center mx-auto">
             <h1 className="text-4xl text-center my-8">
@@ -84,8 +123,7 @@ function FormTema() {
                     />
                 </div>
                 <button
-                    className="rounded text-slate-100 bg-indigo-400 
-                               hover:bg-indigo-800 w-1/2 py-2 mx-auto flex justify-center"
+                    className="rounded text-slate-100 bg-heavyorange hover:bg-green-700 w-1/2 py-2 mx-auto flex justify-center"
                     type="submit">
                     {isLoading ?
                         <RotatingLines

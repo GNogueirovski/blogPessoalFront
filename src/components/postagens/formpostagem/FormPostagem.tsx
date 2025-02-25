@@ -5,6 +5,7 @@ import Postagem from "../../../models/Postagem";
 import Tema from "../../../models/Tema";
 import { buscar, atualizar, cadastrar } from "../../../services/Service";
 import { RotatingLines } from "react-loader-spinner";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function FormPostagem() {
 
@@ -74,7 +75,7 @@ function FormPostagem() {
     // Esse useEffect verifica se quando o usuário acessou esse componente, ele tem um token válido
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado');
+            ToastAlerta("Você precisa estar logado!", "info")
             navigate('/');
         }
     }, [token])
@@ -127,13 +128,13 @@ function FormPostagem() {
                     },
                 });
 
-                alert('Postagem atualizada com sucesso')
+                ToastAlerta("Postagem atualizada com sucesso!", "sucesso")
 
             } catch (error: any) {
                 if (error.toString().includes('403')) {
                     handleLogout()
                 } else {
-                    alert('Erro ao atualizar a Postagem')
+                    ToastAlerta("Erro ao atualizar postagem!", "erro")
                 }
             }
 
@@ -145,13 +146,13 @@ function FormPostagem() {
                     },
                 })
 
-                alert('Postagem cadastrada com sucesso');
+                ToastAlerta("Postagem cadastrada com sucesso!", "sucesso")
 
             } catch (error: any) {
                 if (error.toString().includes('403')) {
                     handleLogout()
                 } else {
-                    alert('Erro ao cadastrar a Postagem');
+                    ToastAlerta("Erro ao cadastrar postagem!", "erro")
                 }
             }
         }
@@ -210,7 +211,7 @@ function FormPostagem() {
                 </div>
                 <button
                     type='submit'
-                    className='rounded disabled:bg-slate-200 bg-indigo-400 hover:bg-indigo-800
+                    className='rounded disabled:bg-slate-200 bg-heavyorange hover:bg-green-700
                                text-white font-bold w-1/2 mx-auto py-2 flex justify-center'
                     disabled={carregandoTema}
                 // se a variavel estiver com o valor true, esse botão fica desativado, para impedir que a Postagem seja cadastrada sem um Tema

@@ -4,6 +4,7 @@ import { AuthContext } from "../../../contexts/AuthContext"
 import Postagem from "../../../models/Postagem"
 import { buscar, deletar } from "../../../services/Service"
 import { RotatingLines } from "react-loader-spinner"
+import { ToastAlerta } from "../../../utils/ToastAlerta"
 
 function DeletarPostagem() {
 
@@ -41,7 +42,7 @@ function DeletarPostagem() {
     // Esse useEffect verifica se quando o usuário acessou esse componente, ele tem um token válido
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado')
+            ToastAlerta("Você precisa estar logado!", "info")
             navigate('/')
         }
     }, [token])
@@ -65,13 +66,13 @@ function DeletarPostagem() {
                 }
             })
 
-            alert('Postagem apagada com sucesso')
+            ToastAlerta("Postagem apagada com sucesso!", "sucesso")
 
         } catch (error: any) {
             if (error.toString().includes('403')) {
                 handleLogout()
             } else {
-                alert('Erro ao deletar a postagem.')
+                ToastAlerta("Erro ao deletar a postagem!", "erro")
             }
         }
 
@@ -85,8 +86,8 @@ function DeletarPostagem() {
     }
 
     return (
-        <div className='container w-1/3 mx-auto'>
-            <h1 className='text-4xl text-center my-4'>Deletar Postagem</h1>
+        <div className='container flex flex-col items-center justify-center mx-auto w-1/3'>
+            <h1 className='text-4xl text-center my-8'>Deletar Postagem</h1>
 
             <p className='text-center font-semibold mb-4'>
                 Você tem certeza de que deseja apagar a postagem a seguir?
@@ -94,7 +95,7 @@ function DeletarPostagem() {
 
             <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
                 <header
-                    className='py-2 px-6 bg-indigo-600 text-white font-bold text-2xl'>
+                    className='py-2 px-6 bg-darkorange text-white font-bold text-2xl'>
                     Postagem
                 </header>
                 <div className="p-4">
@@ -103,13 +104,13 @@ function DeletarPostagem() {
                 </div>
                 <div className="flex">
                     <button
-                        className='text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2'
+                        className='text-slate-100 bg-red-700 hover:bg-red-500 w-full py-2'
                         onClick={retornar}>
                         Não
                     </button>
                     <button
-                        className='w-full text-slate-100 bg-indigo-400 
-                        hover:bg-indigo-600 flex items-center justify-center'
+                        className='w-full text-slate-100 bg-green-700 
+                        hover:bg-green-500 flex items-center justify-center'
                         onClick={deletarPostagem}>
 
                         {isLoading ?    // Se houver um carregamento, mostre um Loader
